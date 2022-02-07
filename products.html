@@ -12,7 +12,7 @@
     <div id="app">
         <div class="container">
           <div class="text-end mt-4">
-            <button class="btn btn-primary">
+            <button class="btn btn-primary" @click="showProductModal">
               建立新的產品
             </button>
           </div>
@@ -38,14 +38,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td></td>
-                <td></td>
-                <td class="text-end"></td>
-                <td class="text-end"></td>
+              <tr v-for="item in products" :key="item.id">
+                <td>{{ item.category }}</td>
+                <td>{{ item.title }}</td>
+                <td class="text-end">{{ item.origin_price }}</td>
+                <td class="text-end">{{ item.price }}</td>
                 <td>
-                  <span class="text-success">啟用</span>
-                  <span>未啟用</span>
+                  <span class="text-success" v-if="item.is_enabled">啟用</span>
+                  <span v-else>未啟用</span>
                 </td>
                 <td>
                   <div class="btn-group">
