@@ -2,12 +2,13 @@ import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.29/vue
 
 const apiUrl = 'https://vue3-course-api.hexschool.io/v2';
 const apiPath = "kn99";
-const productModal = new bootstrap.Modal(document.getElementById('productModal'), {});
+let productModal = {};
 
 const app = createApp({
     data() {
         return {
             products: [],
+            tempProduct: {},
         }
     },
     methods: {
@@ -24,6 +25,7 @@ const app = createApp({
     },
     mounted() {
         axios.defaults.headers.common.Authorization = document.cookie.replace(/(?:(?:^|.*;\s*)hextoken\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+        productModal = new bootstrap.Modal(document.getElementById('productModal'), {});
         this.getProducts();
     }
 });
