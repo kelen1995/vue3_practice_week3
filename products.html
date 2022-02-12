@@ -12,7 +12,7 @@
     <div id="app">
         <div class="container">
           <div class="text-end mt-4">
-            <button class="btn btn-primary" type="button" @click="showProductModal">
+            <button class="btn btn-primary" type="button" @click="showProductModal('add')">
               建立新的產品
             </button>
           </div>
@@ -38,7 +38,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in products" :key="item.id">
+              <tr v-for="(item, key) in products" :key="item.id">
                 <td>{{ item.category }}</td>
                 <td>{{ item.title }}</td>
                 <td class="text-end">{{ item.origin_price }}</td>
@@ -49,7 +49,7 @@
                 </td>
                 <td>
                   <div class="btn-group">
-                    <button type="button" class="btn btn-outline-primary btn-sm">
+                    <button type="button" class="btn btn-outline-primary btn-sm" @click="showProductModal('edit', item)">
                       編輯
                     </button>
                     <button type="button" class="btn btn-outline-danger btn-sm">
@@ -82,13 +82,11 @@
                       </div>
                       <img class="img-fluid" :src="tempProduct.imageUrl" :alt="tempProduct.id">
                     </div>
-                    <div>
-                      <div v-if="Array.isArray(tempProduct.imagesUrl)">
+                    <div v-if="Array.isArray(tempProduct.imagesUrl)">
                         <template v-for="(img, key) in tempProduct.imagesUrl" :key="key + 99">
                           <input type="text" class="form-control" placeholder="請輸入圖片連結" v-model="tempProduct.imagesUrl[key]">
                           <img class="img-fluid" :src="tempProduct.imagesUrl[key]" alt="">
                         </template>
-                      </div>
                       <button class="btn btn-outline-primary btn-sm d-block w-100" type="button" @click="tempProduct.imagesUrl.push('')"
                         v-if="!tempProduct.imagesUrl.length || tempProduct.imagesUrl[tempProduct.imagesUrl.length - 1]">
                         新增圖片
@@ -150,7 +148,7 @@
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                   取消
                 </button>
-                <button type="button" class="btn btn-primary" @click="createProduct()">
+                <button type="button" class="btn btn-primary" @click="updateProduct">
                   確認
                 </button>
               </div>
