@@ -3,6 +3,7 @@ import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.29/vue
 const apiUrl = 'https://vue3-course-api.hexschool.io/v2';
 const apiPath = "kn99";
 let productModal = {};
+let deleteProductModal = {};
 
 const app = createApp({
     data() {
@@ -29,16 +30,18 @@ const app = createApp({
                 case 'add':
                     this.tempProduct = {imagesUrl:[]};
                     this.isNew = true;
+                    productModal.show();
                     break;
                 case 'edit':
                     this.tempProduct = {...product};
                     this.isNew = false;
-                    break;                    
+                    productModal.show();
+                    break;
+                case 'delete':
+                    deleteProductModal.show();
+                    this.tempProduct = {...product};
+                    break;
             }
-            productModal.show();
-        },
-        hideProductModal() {
-            productModal.hide();
         },
         updateProduct() {
             let method = 'post';
@@ -56,7 +59,7 @@ const app = createApp({
             })
             .then(res => {
                 alert(message);
-                this.hideProductModal();
+                productModal.hide();
                 this.getProducts();
                 this.tempProduct = {imagesUrl:[]};
             })
@@ -65,11 +68,23 @@ const app = createApp({
                 alert('產品新增失敗');
             })
         },
+        deleteProduct() {
+            axios.delete(`${apiUrl}/api/${apiPath}/admin/product/${this.tempProduct.id}`)
+            .then(res => {
+                deleteProductModal.hide();
+                this.getProducts();
+            })
+            .catch(err => {
+                console.log(err);
+                alert('產品刪除失敗');
+            });
+        },
         checkUser() {// 檢查是否有登入 token
             axios.defaults.headers.common.Authorization = document.cookie.replace(/(?:(?:^|.*;\s*)hextoken\s*\=\s*([^;]*).*$)|^.*$/, "$1");
             axios.post(`${apiUrl}/api/user/check`)
             .then(res => {
                 productModal = new bootstrap.Modal(document.getElementById('productModal'), {});
+                deleteProductModal = new bootstrap.Modal(document.getElementById('delProductModal'), {});
                 this.getProducts();
             })
             .catch(err => {

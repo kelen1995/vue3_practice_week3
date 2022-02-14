@@ -52,7 +52,7 @@
                     <button type="button" class="btn btn-outline-primary btn-sm" @click="showProductModal('edit', item)">
                       編輯
                     </button>
-                    <button type="button" class="btn btn-outline-danger btn-sm">
+                    <button type="button" class="btn btn-outline-danger btn-sm" @click="showProductModal('delete', item)">
                       刪除
                     </button>
                   </div>
@@ -172,7 +172,7 @@
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                   取消
                 </button>
-                <button type="button" class="btn btn-danger">
+                <button type="button" class="btn btn-danger" @click="deleteProduct">
                   確認刪除
                 </button>
               </div>
