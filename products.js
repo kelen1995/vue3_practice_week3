@@ -33,7 +33,7 @@ const app = createApp({
                     productModal.show();
                     break;
                 case 'edit':
-                    this.tempProduct = {...product};
+                    this.tempProduct = {imagesUrl:[], ...product};
                     this.isNew = false;
                     productModal.show();
                     break;

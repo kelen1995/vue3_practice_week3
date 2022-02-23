@@ -77,12 +77,13 @@
                   <div class="col-sm-4">
                     <div class="mb-2">
                       <div class="mb-3">
-                        <label for="imageUrl" class="form-label">輸入圖片網址</label>
+                        <label for="imageUrl" class="form-label">主要圖片網址</label>
                         <input type="text" class="form-control" placeholder="請輸入圖片連結" v-model="tempProduct.imageUrl">
                       </div>
                       <img class="img-fluid" :src="tempProduct.imageUrl" :alt="tempProduct.id">
                     </div>
                     <div v-if="Array.isArray(tempProduct.imagesUrl)">
+                        <p for="">其他圖片網址</p>
                         <template v-for="(img, key) in tempProduct.imagesUrl" :key="key + 99">
                           <input type="text" class="form-control" placeholder="請輸入圖片連結" v-model="tempProduct.imagesUrl[key]">
                           <img class="img-fluid" :src="tempProduct.imagesUrl[key]" alt="">
